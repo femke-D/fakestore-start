@@ -1,12 +1,28 @@
 ---
 import { getCollection } from "astro:content";
 const products = await getCollection("products");
+import ProductCard from "./ProductCard.astro";
 ---
+
+<style>
+    ul {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+        grid-gap: var(--s4);
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+</style>
 
 <ul>
     {
         products.map((product) => (
-            <li key={product.data.id}>{product.data.title}</li>
+            <li>
+                <ProductCard product={product.data} />
+            </li>
         ))
     }
 </ul>
