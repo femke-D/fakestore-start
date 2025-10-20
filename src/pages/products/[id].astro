@@ -1,0 +1,20 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ProductCard from "../../components/ProductCard.astro";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+    const products = await getCollection("products");
+
+    return products.map((product) => ({
+        params: { id: product.data.id.toString() },
+        props: { product: product.data },
+    }));
+}
+
+const { product } = Astro.props;
+---
+
+<BaseLayout>
+    <ProductCard product={product} />
+</BaseLayout>
